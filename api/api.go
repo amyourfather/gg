@@ -12,7 +12,7 @@ import (
 //See credentials.go
 
 /*YOUR CODE HERE*/
-
+var garray = []Credentials{}
 
 
 func RegisterRoutes(router *mux.Router) error {
@@ -91,7 +91,10 @@ func getJSON(response http.ResponseWriter, request *http.Request) {
 	cred := Credentials{}
 	err := json.NewDecoder(request.Body).Decode(&cred)
 	if err != nil {
-		http.Error(response, err.Error(), 100)
+		http.Error(response, err.Error(), http.StatusBadRequest)
+	}
+	if cred.Password == "" || cred.Username == "" {
+		http.Error(response, err.Error(), http.StatusBadRequest)
 	}
 	fmt.Fprintf(response, cred.Username + "\n" + cred.Password)
 
@@ -115,6 +118,13 @@ func signup(response http.ResponseWriter, request *http.Request) {
 	*/
 
 	/*YOUR CODE HERE*/
+	cred := Credentials{}
+	err := json.NewDecoder(request.Body).Decode(&cred)
+	if err != nil {
+		http.Error(response, err.Error(), http.StatusBadRequest)
+	}
+	garray = append(garray, cred)
+
 }
 
 func getIndex(response http.ResponseWriter, request *http.Request) {
