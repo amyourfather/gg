@@ -162,11 +162,14 @@ func getIndex(response http.ResponseWriter, request *http.Request) {
 	*/
 
 	/*YOUR CODE HERE*/
+	/*
 	cred := Credentials{}
 	err := json.NewDecoder(request.Body).Decode(&cred)
 	if err != nil {
 		http.Error(response, err.Error(), http.StatusBadRequest)
 	}
+
+	 */
 }
 
 func getPassword(response http.ResponseWriter, request *http.Request) {
