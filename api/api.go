@@ -124,6 +124,7 @@ func signup(response http.ResponseWriter, request *http.Request) {
 		http.Error(response, err.Error(), http.StatusBadRequest)
 	}
 	garray = append(garray, cred)
+	response.WriteHeader(201)
 
 }
 
