@@ -130,7 +130,7 @@ func signup(response http.ResponseWriter, request *http.Request) {
 	}
 	check := false
 	for _, stru := range garray {
-		if stru.Username == cred.Username && stru.Username != cred.Password {
+		if stru.Username == cred.Username {
 			check = true
 			break
 		}
@@ -284,4 +284,26 @@ func deleteUser(response http.ResponseWriter, request *http.Request) {
 	*/
 
 	/*YOUR CODE HERE*/
+	cred := Credentials{}
+	err := json.NewDecoder(request.Body).Decode(&cred)
+	if err != nil {
+		http.Error(response, err.Error(), http.StatusBadRequest)
+	}
+	check := true
+	for ind , stru := range garray {
+		if stru.Username == cred.Username {
+			if (stru.Password != cred.Password) {
+				http.Error(response, "error", http.StatusBadRequest)
+			}
+			newgarray := remove(garray, ind)
+			garray = newgarray
+			//garray[ind].Password = cred.Password
+			//stru.Password = cred.Password
+			check = false
+			break
+		}
+	}
+	if check {
+		http.Error(response, "error", http.StatusBadRequest)
+	}
 }
