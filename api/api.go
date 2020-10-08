@@ -127,6 +127,16 @@ func signup(response http.ResponseWriter, request *http.Request) {
 	if cred.Password == "" || cred.Username == "" {
 		http.Error(response, "error", http.StatusBadRequest)
 	}
+	check := false
+	for _, stru := range garray {
+		if stru.Username == cred.Username {
+			check = true
+			break
+		}
+	}
+	if check {
+		http.Error(response, "error", http.StatusBadRequest)
+	}
 	garray = append(garray, cred)
 
 
