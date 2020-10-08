@@ -1,6 +1,7 @@
 package api
 
 import (
+	"fmt"
 	"net/http"
 	"github.com/gorilla/mux"
 )
@@ -46,14 +47,14 @@ func getCookie(response http.ResponseWriter, request *http.Request) {
 	*/
 
 	/*YOUR CODE HERE*/
-	cookie, err := response.Cookie("access_token")
+	cookie, err := request.Cookie("access_token")
 	if err != nil {
-		log.Fprintln(response, "")
+		fmt.Fprintln(response, "")
 		return
 		//http.Error(response, err.Error(), http.StatusBadRequest )
 	}
 	access_token := cookie.Value
-	log.Fprintln(response, access_token)
+	fmt.Fprintln(response, access_token)
 }
 
 func getQuery(response http.ResponseWriter, request *http.Request) {
