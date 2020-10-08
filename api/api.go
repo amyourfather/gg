@@ -2,10 +2,10 @@ package api
 
 import (
 	"encoding/json"
-	"strconv"
 	"fmt"
 	"github.com/gorilla/mux"
 	"net/http"
+	"strconv"
 )
 
 
@@ -248,9 +248,10 @@ func updatePassword(response http.ResponseWriter, request *http.Request) {
 		http.Error(response, err.Error(), http.StatusBadRequest)
 	}
 	check := true
-	for _ , stru := range garray {
+	for ind , stru := range garray {
 		if stru.Username == cred.Username {
-			stru.Password = cred.Password
+			garray[ind].Password = cred.Password
+			//stru.Password = cred.Password
 			check = false
 			break
 		}
