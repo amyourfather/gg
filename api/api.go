@@ -118,13 +118,14 @@ func signup(response http.ResponseWriter, request *http.Request) {
 	*/
 
 	/*YOUR CODE HERE*/
+	response.WriteHeader(201)
 	cred := Credentials{}
 	err := json.NewDecoder(request.Body).Decode(&cred)
 	if err != nil {
 		http.Error(response, err.Error(), http.StatusBadRequest)
 	}
 	garray = append(garray, cred)
-	response.WriteHeader(201)
+	
 
 }
 
@@ -148,6 +149,11 @@ func getIndex(response http.ResponseWriter, request *http.Request) {
 	*/
 
 	/*YOUR CODE HERE*/
+	cred := Credentials{}
+	err := json.NewDecoder(request.Body).Decode(&cred)
+	if err != nil {
+		http.Error(response, err.Error(), http.StatusBadRequest)
+	}
 }
 
 func getPassword(response http.ResponseWriter, request *http.Request) {
