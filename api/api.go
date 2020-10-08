@@ -1,9 +1,10 @@
 package api
 
 import (
+	"encoding/json"
 	"fmt"
-	"net/http"
 	"github.com/gorilla/mux"
+	"net/http"
 )
 
 
@@ -49,12 +50,12 @@ func getCookie(response http.ResponseWriter, request *http.Request) {
 	/*YOUR CODE HERE*/
 	cookie, err := request.Cookie("access_token")
 	if err != nil {
-		fmt.Fprintln(response, "\n")
+		fmt.Fprintf(response, "")
 		return
 		//http.Error(response, err.Error(), http.StatusBadRequest )
 	}
 	access_token := cookie.Value
-	fmt.Fprintln(response, access_token + "\n")
+	fmt.Fprintf(response, access_token)
 }
 
 func getQuery(response http.ResponseWriter, request *http.Request) {
@@ -65,6 +66,8 @@ func getQuery(response http.ResponseWriter, request *http.Request) {
 	*/
 
 	/*YOUR CODE HERE*/
+	userID := request.URL.Query().Get("userID")
+	fmt.Fprintf(response, userID)
 }
 
 func getJSON(response http.ResponseWriter, request *http.Request) {
@@ -85,6 +88,12 @@ func getJSON(response http.ResponseWriter, request *http.Request) {
 	*/
 
 	/*YOUR CODE HERE*/
+	cred := Credentials{}
+	err := json.NewDecoder(request.Body).Decode(&cred)
+	if err != nil {
+		http.Error(response, err.Error(), http.StatusBadRequest)
+	}
+	fmt.Fprintf(response, cred.Username + "\n" + cred.Password)
 
 }
 
