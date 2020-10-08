@@ -261,6 +261,10 @@ func updatePassword(response http.ResponseWriter, request *http.Request) {
 	}
 }
 
+func remove(slice []Credentials, s int) []Credentials {
+	return append(slice[:s], slice[s+1:]...)
+}
+
 func deleteUser(response http.ResponseWriter, request *http.Request) {
 
 	/*
