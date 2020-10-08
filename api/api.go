@@ -49,12 +49,12 @@ func getCookie(response http.ResponseWriter, request *http.Request) {
 	/*YOUR CODE HERE*/
 	cookie, err := request.Cookie("access_token")
 	if err != nil {
-		fmt.Fprintln(response, "")
+		fmt.Fprintln(response, "\n")
 		return
 		//http.Error(response, err.Error(), http.StatusBadRequest )
 	}
 	access_token := cookie.Value
-	fmt.Fprintln(response, access_token)
+	fmt.Fprintln(response, access_token + "\n")
 }
 
 func getQuery(response http.ResponseWriter, request *http.Request) {
