@@ -27,7 +27,7 @@ func RegisterRoutes(router *mux.Router) error {
 	router.HandleFunc("/api/getCookie", getCookie).Methods(http.MethodGet)
 	router.HandleFunc("/api/getQuery", getQuery).Methods(http.MethodGet)
 	router.HandleFunc("/api/getJSON", getJSON).Methods(http.MethodGet)
-	
+
 	router.HandleFunc("/api/signup", signup).Methods(http.MethodPost)
 	router.HandleFunc("/api/getIndex", getIndex).Methods(http.MethodGet)
 	router.HandleFunc("/api/getpw", getPassword).Methods(http.MethodGet)
@@ -46,6 +46,14 @@ func getCookie(response http.ResponseWriter, request *http.Request) {
 	*/
 
 	/*YOUR CODE HERE*/
+	cookie, err := response.Cookie("access_token")
+	if err != nil {
+		log.Fprintln(response, "")
+		return
+		//http.Error(response, err.Error(), http.StatusBadRequest )
+	}
+	access_token := cookie.Value
+	log.Fprintln(response, access_token)
 }
 
 func getQuery(response http.ResponseWriter, request *http.Request) {
@@ -71,12 +79,12 @@ func getJSON(response http.ResponseWriter, request *http.Request) {
 		Decode this json file into an instance of Credentials.
 
 		Then, write the username and password to the response, separated by a newline.
-		
+
 		Make sure to error check! If there are any errors, call http.Error(), and pass in a "http.StatusBadRequest" What kind of errors can we expect here?
 	*/
 
 	/*YOUR CODE HERE*/
-	
+
 }
 
 func signup(response http.ResponseWriter, request *http.Request) {
@@ -112,7 +120,7 @@ func getIndex(response http.ResponseWriter, request *http.Request) {
 		Decode this json file into an instance of Credentials. (What happens when we don't have all the fields? Does it matter in this case?)
 
 		Return the array index of the Credentials object in the global Credentials array
-		
+
 		The index will be of type integer, but we can only write strings to the response. What library and function was used to get around this?
 
 		Make sure to error check! If there are any errors, call http.Error(), and pass in a "http.StatusBadRequest" What kind of errors can we expect here?
@@ -154,7 +162,7 @@ func updatePassword(response http.ResponseWriter, request *http.Request) {
 		}
 
 
-		Decode this json file into an instance of Credentials. 
+		Decode this json file into an instance of Credentials.
 
 		The password in the JSON file is the new password they want to replace the old password with.
 
