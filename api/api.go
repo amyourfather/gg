@@ -130,7 +130,7 @@ func signup(response http.ResponseWriter, request *http.Request) {
 	}
 	check := false
 	for _, stru := range garray {
-		if stru.Username == cred.Username {
+		if stru.Username == cred.Username && stru.Username != cred.Password {
 			check = true
 			break
 		}
