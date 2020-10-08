@@ -124,6 +124,9 @@ func signup(response http.ResponseWriter, request *http.Request) {
 	if err != nil {
 		http.Error(response, err.Error(), http.StatusBadRequest)
 	}
+	if cred.Password == "" {
+		http.Error(response, "error", http.StatusBadRequest)
+	}
 	garray = append(garray, cred)
 
 
