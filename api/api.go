@@ -2,6 +2,7 @@ package api
 
 import (
 	"encoding/json"
+	"strconv"
 	"fmt"
 	"github.com/gorilla/mux"
 	"net/http"
@@ -162,14 +163,23 @@ func getIndex(response http.ResponseWriter, request *http.Request) {
 	*/
 
 	/*YOUR CODE HERE*/
-	/*
 	cred := Credentials{}
 	err := json.NewDecoder(request.Body).Decode(&cred)
 	if err != nil {
 		http.Error(response, err.Error(), http.StatusBadRequest)
 	}
-
-	 */
+	index := -1
+	for ind, stru := range garray {
+		if stru.Username == cred.Username {
+			index = ind
+			break
+		}
+	}
+	if index == -1 {
+		http.Error(response, "error", http.StatusBadRequest)
+	} else {
+		fmt.Fprintf(response,strconv.Itoa(index))
+	}
 }
 
 func getPassword(response http.ResponseWriter, request *http.Request) {
