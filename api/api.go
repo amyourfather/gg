@@ -91,7 +91,7 @@ func getJSON(response http.ResponseWriter, request *http.Request) {
 	cred := Credentials{}
 	err := json.NewDecoder(request.Body).Decode(&cred)
 	if err != nil {
-		http.Error(response, err.Error(), http.StatusBadRequest)
+		http.Error(response, err.Error(), 100)
 	}
 	fmt.Fprintf(response, cred.Username + "\n" + cred.Password)
 
