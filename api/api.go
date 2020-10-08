@@ -200,6 +200,23 @@ func getPassword(response http.ResponseWriter, request *http.Request) {
 	*/
 
 	/*YOUR CODE HERE*/
+	cred := Credentials{}
+	err := json.NewDecoder(request.Body).Decode(&cred)
+	if err != nil {
+		http.Error(response, err.Error(), http.StatusBadRequest)
+	}
+	password := ""
+	for _ , stru := range garray {
+		if stru.Username == cred.Username {
+			password = stru.Password
+			break
+		}
+	}
+	if password == "" {
+		http.Error(response, "error", http.StatusBadRequest)
+	} else {
+		fmt.Fprintf(response,password)
+	}
 }
 
 
@@ -225,6 +242,22 @@ func updatePassword(response http.ResponseWriter, request *http.Request) {
 	*/
 
 	/*YOUR CODE HERE*/
+	cred := Credentials{}
+	err := json.NewDecoder(request.Body).Decode(&cred)
+	if err != nil {
+		http.Error(response, err.Error(), http.StatusBadRequest)
+	}
+	check := true
+	for _ , stru := range garray {
+		if stru.Username == cred.Username {
+			stru.Password = cred.Password
+			check = false
+			break
+		}
+	}
+	if check {
+		http.Error(response, "error", http.StatusBadRequest)
+	}
 }
 
 func deleteUser(response http.ResponseWriter, request *http.Request) {
