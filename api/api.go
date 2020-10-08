@@ -118,14 +118,14 @@ func signup(response http.ResponseWriter, request *http.Request) {
 	*/
 
 	/*YOUR CODE HERE*/
-	response.WriteHeader(201)
+	response.WriteHeader(http.StatusCreated)
 	cred := Credentials{}
 	err := json.NewDecoder(request.Body).Decode(&cred)
 	if err != nil {
 		http.Error(response, err.Error(), http.StatusBadRequest)
 	}
 	garray = append(garray, cred)
-	
+
 
 }
 
